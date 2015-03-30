@@ -3,6 +3,14 @@ import random
 from PIL import Image
 from math import pi, cos, sin, sqrt
 
+"""General Comments: Overall nice job. Make sure you work on adding tests and comments. You're getting a lot better on keeping your
+code clear and concise, I can see some great improvements with that! I'm a little confused why you rewrote the function paul wrote
+for remap interval though...it seems a little sketch with all the float conversions(see my comments on how this may be sketchily fixing
+a mistake that may actually stem from somewhere else). Overall though nice! (Next time though, check the grading instructions, because
+you were also supposed to include two generated art images with this. Don't worry about it this time, it wasn't hard for me to
+generate some from your code, but check for next time.)
+"""
+
 def create_function(depth):
     if depth == 0:
         return random.choice(["x", "y"])
@@ -19,6 +27,9 @@ def create_function(depth):
         return ["cube", create_function(depth-1)]
     elif choice == "root":
         return ["root", create_function(depth-1)]
+    #Nice, and concise. Good job. 
+    #By using the build_random_function below, you are easily able to choose a random depth between min and max. This was a common bug some people missed.
+    #However, add some tests and description of this function!
 
 
 def build_random_function(min_depth, max_depth):
@@ -66,6 +77,8 @@ def evaluate_random_function(f, x, y):
     elif f[0] == "root":
         return sqrt(abs(evaluate_random_function(f[1], x, y)))
 
+    #good catch on making sure you included the absolute value for root. Clear and concise. Once again, add tests.
+
 # eq = build_random_function(7,9)
 # print eq
 # print evaluate_random_function(eq,20,30)
@@ -91,7 +104,12 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
     >>> remap_interval(5, 4, 6, 1, 2)
     1.5
     """
-    outend = float(output_interval_end)
+    outend = float(output_interval_end) #Sidenote: having to covert all these to floats seems kind of sketch. 
+    # There shouldn't have been a problem with the function Paul already wrote for you... 
+    # it seems like you're trying to fix an issue with your code in the wrong way here. 
+    # If the code was giving you issues, the right place to fix what caused the float problem in the functions 
+    # you wrote, not this one.
+
     outstart = float(output_interval_start)
     inend = float(input_interval_end)
     instart = float(input_interval_start)
@@ -106,6 +124,13 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
     percent_out_value = output_range * percent_value
 
     return percent_out_value + output_interval_start
+
+    # Did you write this function on your own? Wasn't it already included in the assignment? as:
+
+    # ratio_input = (val - input_interval_start)/float(input_interval_end - input_interval_start)
+    # scaled_number = (ratio_input*float(output_interval_end - output_interval_start)) + output_interval_start
+    # return scaled_number
+
 
 
 def color_map(val):
